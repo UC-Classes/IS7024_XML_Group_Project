@@ -27,7 +27,8 @@ namespace IS7024_XML_Group_Project.Pages
            double temp = 0;
 
 
-            //using QuickTypecandy;
+
+            //pull in JSON stream for candy
             using (var webClient = new WebClient())
             {
                 string jsonString = webClient.DownloadString("https://raw.githubusercontent.com/UC-Classes/IS7024_XML_Group_Project/master/candyfile.txt");
@@ -43,13 +44,13 @@ namespace IS7024_XML_Group_Project.Pages
             QuickTypeWeather.Weather weather = QuickTypeWeather.Weather.FromJson(weatherData);
             QuickTypeWeather.Datum[] allWeatherData = weather.Data;
 
-
+            //check temperature from weather data
                 foreach (QuickTypeWeather.Datum datum in allWeatherData)
                 {
                     temp = datum.Temp;
                 }
 
-                // if statement to show message if it's raining or not
+                // if statement to show message temperature is below 5*C
                 if (temp < 5)
                 {
                     ViewData["WeatherMessage"] = "Bundle up, it's cold!";
