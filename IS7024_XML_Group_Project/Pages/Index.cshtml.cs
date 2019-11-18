@@ -22,29 +22,27 @@ namespace IS7024_XML_Group_Project.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public JsonResult OnGet()
         {
-           double temp = 0;
+            double temp = 0;
 
 
 
             //pull in JSON stream for candy
-            using (var webClient = new WebClient())
-            {
-                string jsonString = webClient.DownloadString("https://raw.githubusercontent.com/UC-Classes/IS7024_XML_Group_Project/master/candyfile.txt");
+                string jsonString = getJSONOutput("https://raw.githubusercontent.com/UC-Classes/IS7024_XML_Group_Project/master/candyfile.txt");
                 var candy = Candy.FromJson(jsonString);
                 ViewData["Candy"] = candy;
-            
 
-            // get our weather data and key
-            string weatherAPIKey = System.IO.File.ReadAllText("WeatherAPIKey.txt");
-            string weatherData = webClient.DownloadString("https://api.weatherbit.io/v2.0/current?&city=Cincinnati&country=USA&key=" + weatherAPIKey);
 
-            // parse to objects
-            QuickTypeWeather.Weather weather = QuickTypeWeather.Weather.FromJson(weatherData);
-            QuickTypeWeather.Datum[] allWeatherData = weather.Data;
+                // get our weather data and key
+                string weatherAPIKey = System.IO.File.ReadAllText("WeatherAPIKey.txt");
+                string weatherData = getJSONOutput("https://api.weatherbit.io/v2.0/current?&city=Cincinnati&country=USA&key=" + weatherAPIKey);
 
-            //check temperature from weather data
+                // parse to objects
+                QuickTypeWeather.Weather weather = QuickTypeWeather.Weather.FromJson(weatherData);
+                QuickTypeWeather.Datum[] allWeatherData = weather.Data;
+
+                //check temperature from weather data
                 foreach (QuickTypeWeather.Datum datum in allWeatherData)
                 {
                     temp = datum.Temp;
@@ -61,9 +59,25 @@ namespace IS7024_XML_Group_Project.Pages
                     ViewData["WeatherMessage"] = "Temperature is great!";
 
                 }
+            // added for JSon result
+            return new JsonResult(weather);
+            
 
+            
+
+        }
+        // download JSON data from the URL
+        public string getJSONOutput(string link)
+        {
+            using (var webClient = new WebClient())
+            {
+                String newLink = webClient.DownloadString(link);
+                return newLink;
             }
 
         }
+
     }
+
 }
+
