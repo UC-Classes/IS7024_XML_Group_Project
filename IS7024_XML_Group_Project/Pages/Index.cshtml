@@ -7,7 +7,18 @@
     var weatherMessage = ViewData["WeatherMessage"];
 
 }
-
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 10px;
+        }
+    </style>
     <div class="text-center">
         <h1 class="display-4">Trick or Treat!</h1>
         <h2>@weatherMessage</h2>
@@ -15,8 +26,8 @@
         <br />
         <br />
         <br />
-
-
+    </div>
+    <div>
         <table>
             <tr>
                 <th>Description</th>
