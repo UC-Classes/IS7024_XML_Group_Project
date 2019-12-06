@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Pages\WeatherAPIKey.txt" />
+    <Content Include="WeatherAPIKey.txt" />
   </ItemGroup>
 
   <ItemGroup>

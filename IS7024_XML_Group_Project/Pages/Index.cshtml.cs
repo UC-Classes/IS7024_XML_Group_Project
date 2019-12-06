@@ -31,9 +31,9 @@ namespace IS7024_XML_Group_Project.Pages
 	        var candy = Candy.FromJson(jsonString);
 	        ViewData["Candy"] = candy;
 
-	        // get our weather data and key
-	        // string weatherAPIKey = System.IO.File.ReadAllText("./Pages/WeatherAPIKey.txt");
-	        string weatherData = GetData("https://api.weatherbit.io/v2.0/current?&city=Cincinnati&country=USA&key=" + "a4af0bf53b14465b8ba97d04a99c3c2e");
+			// get our weather data and key
+			string weatherAPIKey = System.IO.File.ReadAllText("WeatherAPIKey.txt");
+	        string weatherData = GetData("https://api.weatherbit.io/v2.0/current?&city=Cincinnati&country=USA&key=" + weatherAPIKey);
 
 	        // parse to objects
 	        QuickTypeWeather.Weather weather = QuickTypeWeather.Weather.FromJson(weatherData);
