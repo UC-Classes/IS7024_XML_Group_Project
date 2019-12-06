@@ -1,0 +1,52 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var candys = (QuickTypeCandy.Candy[])ViewData["Candy"];
+
+    var weatherMessage = ViewData["WeatherMessage"];
+}
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 10px;
+    }
+</style>
+<div class="text-center">
+    <h1 class="display-4">Trick or Treat!</h1>
+    <h2>@weatherMessage</h2>
+    <h3>Be on the lookout for these tasty treats!</h3>
+    <br />
+    <br />
+    <br />
+</div>
+<form name="search" method="get" action="#">
+    <input type="text" placeholder="Search Cities" name="city" />
+    <input type="submit" value="Search" />
+</form>
+<div>
+    <table>
+        <tr>
+            <th>Description</th>
+            <th>Score</th>
+        </tr>
+        @{
+            foreach (QuickTypeCandy.Candy candy in candys)
+            {
+                <tr>
+                    <td>@candy.Description</td>
+                    <td>@candy.Score</td>
+
+                </tr>
+            }
+        }
+    </table>
+</div>
