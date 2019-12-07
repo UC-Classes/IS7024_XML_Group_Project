@@ -3,36 +3,58 @@
 @{
     ViewData["Title"] = "Home page";
     var candys = (QuickTypeCandy.Candy[])ViewData["Candy"];
-    
-    var weatherMessage = ViewData["WeatherMessage"];
 
+    var weatherMessage = ViewData["WeatherMessage"];
 }
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
+        body {
+            background-color: orange;
+            background-image: url(Images/hallo-background-blacl.jpg);
+            color: white;
         }
-        td, th {
-          border: 1px solid #dddddd;
-          text-align: left;
-          padding: 10px;
-        }
-    </style>
-    <div class="text-center">
-        <h1 class="display-4">Trick or Treat!</h1>
-        <h2>@weatherMessage</h2>
-        <h3>Be on the lookout for these tasty treats!</h3>
-        <br />
-        <br />
-        <br />
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        color: white;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 10px;
+    }
+</style>
+ </head>
+
+
+<div class="text-center">
+    <h1 class="display-4">Trick or Treat!</h1>
+    <h2>@weatherMessage</h2>
+    <h3>Be on the lookout for these tasty treats!</h3>
+    <br />
+    <br />
+    <br />
+</div>
+<form name="search" method="get" action="#">
+    <input type="text" placeholder="Search Cities" name="city" />
+    <input type="submit" value="Search" />
+</form>
+<body>
+    <div class="container">
+        <p>Halloween candy is important. Make sure you pick the right houses with your favorite treats!</p>
+        <img src="~/Images/halloween-candy.jpeg" class="img-circle" alt="Halloween Candy" width="304" height="236" />
     </div>
     <div>
         <table>
             <tr>
                 <th>Description</th>
                 <th>Score</th>
-
             </tr>
             @{
                 foreach (QuickTypeCandy.Candy candy in candys)
@@ -44,8 +66,6 @@
                     </tr>
                 }
             }
-
-
         </table>
-
     </div>
+</body>
