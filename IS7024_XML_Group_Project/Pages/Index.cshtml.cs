@@ -15,56 +15,63 @@ namespace IS7024_XML_Group_Project.Pages
 {
     public class IndexModel : PageModel
     {
-        //private readonly ILogger<IndexModel> _logger;
+        private readonly ILogger<IndexModel> _logger;
 
-        //public IndexModel(ILogger<IndexModel> logger)
-        //{
-        //    _logger = logger;
-        //}
 
-        public void OnGet()
+        public IndexModel(ILogger<IndexModel> logger)
         {
-	        double temp = 0;
-	        //pull in JSON stream for candy
-		
-	        string jsonString = GetData("https://raw.githubusercontent.com/UC-Classes/IS7024_XML_Group_Project/master/candyfile.txt");
-	        var candy = Candy.FromJson(jsonString);
-	        ViewData["Candy"] = candy;
+            _logger = logger;
+        }
 
-			// get our weather data and key
-			string weatherAPIKey = System.IO.File.ReadAllText("WeatherAPIKey.txt");
-	        string weatherData = GetData("https://api.weatherbit.io/v2.0/current?&city=Cincinnati&country=USA&key=" + weatherAPIKey);
+        public IActionResult OnGet(string city)
+        {
+            if (String.IsNullOrEmpty(city))
+            {
+                city = "Cincinnati";
+            }
 
-	        // parse to objects
-	        QuickTypeWeather.Weather weather = QuickTypeWeather.Weather.FromJson(weatherData);
-	        QuickTypeWeather.Datum[] allWeatherData = weather.Data;
+            double temp = 0;
+            //pull in JSON stream for candy
 
-	        //check temperature from weather data
-	        foreach (QuickTypeWeather.Datum datum in allWeatherData)
-	        {
-		        temp = datum.Temp;
-	        }
-	        // if statement to show message temperature is below 5*C
-	        if (temp < 5)
-	        {
-		        ViewData["WeatherMessage"] = "Bundle up, it's cold!";
+            string jsonString = GetData("https://raw.githubusercontent.com/UC-Classes/IS7024_XML_Group_Project/master/candyfile.txt");
+            var candy = Candy.FromJson(jsonString);
+            ViewData["Candy"] = candy;
 
-	        }
-	        else
-	        {
-		        ViewData["WeatherMessage"] = "Temperature is great!";
+            // get our weather data and key
+            // string weatherAPIKey = System.IO.File.ReadAllText("./Pages/WeatherAPIKey.txt");
+            string weatherData = GetData("https://api.weatherbit.io/v2.0/current?&city=" + city + "&country=USA&key=" + "a4af0bf53b14465b8ba97d04a99c3c2e");
 
-	        }
+            // parse to objects
+            QuickTypeWeather.Weather weather = QuickTypeWeather.Weather.FromJson(weatherData);
+            QuickTypeWeather.Datum[] allWeatherData = weather.Data;
+
+            //check temperature from weather data
+            foreach (QuickTypeWeather.Datum datum in allWeatherData)
+            {
+                temp = datum.Temp;
+            }
+            // if statement to show message temperature is below 5*C
+            if (temp < 5)
+            {
+                ViewData["WeatherMessage"] = "Bundle up, it's cold!";
+
+            }
+            else
+            {
+                ViewData["WeatherMessage"] = "Temperature is great!";
+
+            }
+            return Page();
         }
         public string GetData(string endpoint)
         {
-	        string downloadedData = "";
-	        using (WebClient webClient = new WebClient())
-	        {
-		        downloadedData = webClient.DownloadString(endpoint);
-		
-	        }
-	        return downloadedData;
+            string downloadedData = "";
+            using (WebClient webClient = new WebClient())
+            {
+                downloadedData = webClient.DownloadString(endpoint);
+
+            }
+            return downloadedData;
         }
     }
 }
