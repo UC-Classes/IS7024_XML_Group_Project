@@ -5,7 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Images\hallo-background-blacl.jpg" />
+    <Content Remove="wwwroot\Images\Halloween-Background.jpg" />
+    <Content Remove="wwwroot\Images\Halloween-bats.jpg" />
+    <Content Remove="wwwroot\Images\halloween-candy.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="WeatherAPIKey.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\hallo-background-blacl.jpg" />
+    <None Include="wwwroot\Images\Halloween-Background.jpg" />
+    <None Include="wwwroot\Images\Halloween-bats.jpg" />
+    <None Include="wwwroot\Images\halloween-candy.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
